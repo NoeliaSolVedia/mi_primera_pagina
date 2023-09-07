@@ -53,25 +53,42 @@ function validarFormulario(event) {
 }
 
 
-/*
+const slidesContainer = document.querySelector('.slides');
+const prevButton = document.querySelector('.prev');
+const nextButton = document.querySelector('.next');
 
-document.getElementById("contact-form").addEventListener("submit", function(event) {
-  event.preventDefault(); // Evita que se envíe el formulario de manera predeterminada
-  // Validar campos antes de enviar
-  var name = document.getElementById("nombre").value;
-  var email = document.getElementById("email").value;
-  var message = document.getElementById("mensaje").value;
+let slideIndex = 0;
 
-  if (name == " " || email == " " || message == " ") {
-    alert("Por favor, completa todos los campos.");
-    return;
+function showSlide(index) {
+  const slides = slidesContainer.querySelectorAll('img');
+  slides.forEach((slide, i) => {
+    if (i === index) {
+      slide.style.display = 'block';
+    } else {
+      slide.style.display = 'none';
+    }
+  });
+}
+
+function showNextSlide() {
+  slideIndex++;
+  const slides = slidesContainer.querySelectorAll('img');
+  if (slideIndex >= slides.length) {
+    slideIndex = 0;
   }
+  showSlide(slideIndex);
+}
 
-  // Aquí puedes agregar tu código para enviar el formulario, como una petición AJAX o un redireccionamiento a otra página.
-  // Puedes usar el objeto FormData para recopilar los datos del formulario y enviarlos al servidor.
+function showPrevSlide() {
+  slideIndex--;
+  const slides = slidesContainer.querySelectorAll('img');
+  if (slideIndex < 0) {
+    slideIndex = slides.length - 1;
+  }
+  showSlide(slideIndex);
+}
 
-  alert("Formulario enviado correctamente");
- 
-});
+prevButton.addEventListener('click', showPrevSlide);
+nextButton.addEventListener('click', showNextSlide);
 
-*/
+showSlide(slideIndex);
